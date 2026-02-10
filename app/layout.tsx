@@ -17,8 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "App",
-  description: "next app",
+  title: "NoteHub",
+  description: "AI note system",
+  keywords: ["next.js", "react", "blog"],
 };
 
 export default function RootLayout({
@@ -32,7 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TanStackProvider>
-        <Header />
+          <Header />
           {children}
           {modal}
           <Footer />
