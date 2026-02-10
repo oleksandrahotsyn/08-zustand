@@ -18,8 +18,24 @@ export const generateMetadata = async ({
   const note = await getNote(id);
 
   return {
-    title: note.title,
+    title: note.title.trim(),
     description: note.content,
+    openGraph: {
+      title: note.title.trim(),
+      description: note.content,
+      url: `https://08-zustand.vercel.app/notes/${id}`,
+      siteName: "NoteHub",
+      locale: "en_US",
+      type: "website",
+      images: [
+        {
+          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+          width: 1200,
+          height: 630,
+          alt: "NoteHub",
+        },
+      ],
+    },
   };
 };
 
