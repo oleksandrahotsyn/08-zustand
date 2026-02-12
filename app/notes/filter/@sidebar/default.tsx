@@ -3,17 +3,29 @@ import Link from "next/link";
 import css from "./SidebarNotes.module.css";
 
 async function NotesSidebar() {
-    const tags = await getTags();
-    return (<ul className={css.menuList}>
-        <li className={css.menuItem}>
-            <Link className={css.menuLink} href="/notes/filter/all">All notes</Link>
+  const tags = await getTags();
+  return (
+    <ul className={css.menuList}>
+      <li>
+        <Link href={`/notes/action/create/`}>Create note</Link>
+      </li>
+      <li className={css.menuItem}>
+        <Link className={css.menuLink} href="/notes/filter/all">
+          All notes
+        </Link>
+      </li>
+      {tags.map((tag) => (
+        <li className={css.menuItem} key={tag}>
+          <Link
+            className={css.menuLink}
+            href={`/notes/filter/${encodeURIComponent(tag)}`}
+          >
+            {tag}
+          </Link>
         </li>
-                {tags.map((tag) => (
-            <li className={css.menuItem} key={tag}>
-                <Link className={css.menuLink} href={`/notes/filter/${encodeURIComponent(tag)}`}>{tag}</Link>
-            </li>
-        )) }
-    </ul>)
+      ))}
+    </ul>
+  );
 }
 
 export default NotesSidebar;

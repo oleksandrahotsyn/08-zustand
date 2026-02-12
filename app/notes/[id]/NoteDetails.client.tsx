@@ -9,7 +9,7 @@ import css from "./NoteDetails.module.css";
 
 import { getNote } from "@/lib/api";
 import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
+import NoteForm from "@/components/EditNoteForm/EditNoteForm";
 
 function NoteDetailsClient() {
   const params = useParams<{ id: string }>();
@@ -61,7 +61,6 @@ function NoteDetailsClient() {
       {isEdit && data && (
         <Modal onClose={() => setIsEdit(false)}>
           <NoteForm
-            mode="edit"
             noteId={id}
             initialValues={{
               title: data.title ?? "",

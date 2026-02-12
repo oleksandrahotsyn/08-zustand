@@ -1,3 +1,4 @@
+//lib/api.ts
 import axios from "axios";
 import type { Note, NoteTag } from "@/types/note";
 
@@ -27,7 +28,7 @@ type FetchNotesParams = {
   page: number;
   perPage: number;
   search?: string;
-  tag?: string;
+  tag?: NoteTag;
 };
 
 export async function deleteNote(id: Note["id"]): Promise<Note> {
@@ -94,12 +95,9 @@ export async function updateNote(
 }
 
 
-export async function getTags() {
+export async function getTags(): Promise<NoteTag[]> {
   const { data } = await api.get<NotesResponse>("/notes");
 
-  const tags = Array.from(
-    new Set(data.notes.map(note => note.tag).filter(Boolean))
-  );
-
+  const tags = Array.from(new Set(data.notes.map((note) => note.tag)));
   return tags;
 }

@@ -10,7 +10,7 @@ import css from "./NotesPage.module.css";
 
 import SearchBox from "@/components/SearchBox/SearchBox";
 import NoteList from "@/components/NoteList/NoteList";
-import NoteForm from "@/components/NoteForm/NoteForm";
+import NoteForm from "@/components/EditNoteForm/EditNoteForm";
 import Modal from "@/components/Modal/Modal";
 import Pagination from "@/components/Pagination/Pagination";
 
@@ -60,26 +60,14 @@ export default function NotesClient({
   return (
     <>
       <div className={css.toolbar}>
-        <SearchBox onChange={setSearch} />
+        <div></div>
         <Pagination
           pageCount={totalPages}
           currentPage={page}
           onPageChange={setPage}
         />
-        <button
-          className={css.button}
-          type="button"
-          onClick={() => setIsCreating(true)}
-        >
-          Create note
-        </button>
-
-        {isCreating && (
-          <Modal onClose={() => setIsCreating(false)}>
-            <NoteForm onCancel={() => setIsCreating(false)} />
-          </Modal>
-        )}
-      </div>
+        <SearchBox onChange={setSearch} />
+       </div>
 
       <NoteList notes={notes} />
     </>
