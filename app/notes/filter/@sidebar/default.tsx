@@ -6,7 +6,7 @@ async function NotesSidebar() {
   const tags = await getTags();
   return (
     <ul className={css.menuList}>
-      <li>
+      <li className={css.menuItem}>
         <Link href={`/notes/action/create/`}>Create note</Link>
       </li>
       <li className={css.menuItem}>

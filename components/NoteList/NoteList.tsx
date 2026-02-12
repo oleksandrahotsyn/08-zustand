@@ -40,12 +40,10 @@ export default function NoteList({ notes }: NoteListProps) {
         <li key={note.id} className={css.listItem}>
           <h3 className={css.title}>{note.title}</h3>
           <p className={css.content}>{note.content}</p>
-          <div>
-            <p className={css.tag}>{note.tag}</p>
-            <p>{note.createdAt ? fmt.format(new Date(note.createdAt)) : ""}</p>
-          </div>
+          <p className={css.content}>{note.createdAt ? fmt.format(new Date(note.createdAt)) : ""}</p>
+
           <div className={css.footer}>
-        
+        <p className={css.tag}>{note.tag}</p>
             <Link href={`/notes/${note.id}`} className={css.link}>
               View details
             </Link>
