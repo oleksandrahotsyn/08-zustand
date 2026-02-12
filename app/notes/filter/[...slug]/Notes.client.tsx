@@ -7,7 +7,7 @@ import { useDebounce } from "use-debounce";
 import { fetchNotes } from "@/lib/api";
 import type { NotesResponse } from "@/lib/api";
 import css from "./NotesPage.module.css";
-
+import type { NoteTag } from "@/types/note";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import NoteList from "@/components/NoteList/NoteList";
 import NoteForm from "@/components/EditNoteForm/EditNoteForm";
@@ -15,7 +15,7 @@ import Modal from "@/components/Modal/Modal";
 import Pagination from "@/components/Pagination/Pagination";
 
 type NotesClientProps = {
-  tag?: string;
+  tag?: NoteTag;
   initialPage: number;
   initialSearch: string;
   perPage: number;
