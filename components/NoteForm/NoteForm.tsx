@@ -15,7 +15,7 @@ interface NoteFormProps {
 function NoteForm({ tags }: NoteFormProps) {
     const router = useRouter();
     
-    useMutation({
+    const {mutate} = useMutation({
         mutationFn: createNote,
         onSuccess: () => {
             router.push("/notes/filter/all");
@@ -28,9 +28,9 @@ function NoteForm({ tags }: NoteFormProps) {
     const handleSubmit = (formData: FormData) => {
         const title = formData.get("title") as string;
         const content = formData.get("content") as string;
-        const tags = formData.get("tag") as string;
+        const tag = formData.get("tag") as NoteTag;
 
-        console.log(title, content, tags);
+        mutate({ title, content, tag });
     }
 
   const allTags: NoteTag[] = Array.from(new Set([...NOTE_TAGS, ...tags]));
