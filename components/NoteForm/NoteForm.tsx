@@ -7,7 +7,7 @@ import type { NoteTag } from "@/types/note";
 import { NOTE_TAGS } from "@/types/note";
 import css from "./NoteForm.module.css";
 import {createNote} from "@/lib/api";
-import { useNoteDraftStore } from "@/stores/noteStore";
+import { useNoteDraftStore } from "@/lib/store/noteStore";
 import { ChangeEvent } from "react";
 
 interface NoteFormProps {
