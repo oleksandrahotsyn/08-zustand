@@ -53,17 +53,17 @@ function NoteForm({ tags }: NoteFormProps) {
           <div className={css.formGroup }>
       <label htmlFor="title">
         Title
-              <input id="title" type="text" name="title" required className={css.input } onChange={handleChange}/>
+              <input id="title" type="text" name="title" required className={css.input } onChange={handleChange} defaultValue={draft.title}/>
       </label>
 
       <label htmlFor="content">
         Content
-        <textarea id="content" name="content" className={css.textarea} onChange={handleChange}/>
+        <textarea id="content" name="content" className={css.textarea} onChange={handleChange} defaultValue={draft.content}/>
       </label>
 
       <label htmlFor="tag">
         Tags
-        <select id="tag" name="tag" defaultValue={defaultTag} className={css.select} onChange={handleChange}>
+        <select id="tag" name="tag" defaultValue={defaultTag} className={css.select} onChange={handleChange} >
           {allTags.map((tag) => (
             <option key={tag} value={tag}>
               {tag}
