@@ -1,7 +1,7 @@
-//"use client";
+"use client";
 import type { Metadata } from "next";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+// import { useEffect } from "react";
+// import { useRouter } from "next/navigation";
 import css from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -26,17 +26,17 @@ export const metadata: Metadata = {
 };
 
 export function NotFound() {
-  const router = useRouter();
+  // const router = useRouter();
 
-  useEffect(() => {
-    const timerID = setTimeout(() => {
-      router.push("/");
-    }, 3000);
+  // useEffect(() => {
+  //   const timerID = setTimeout(() => {
+  //     router.push("/");
+  //   }, 3000);
 
-    return () => {
-      clearTimeout(timerID);
-    };
-  }, [router]);
+  //   return () => {
+  //     clearTimeout(timerID);
+  //   };
+  // }, [router]);
 
   return (
     <div className={css.container}>
