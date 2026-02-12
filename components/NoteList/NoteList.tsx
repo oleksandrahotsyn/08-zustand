@@ -25,8 +25,14 @@ export default function NoteList({ notes }: NoteListProps) {
   onSuccess: async () => {
     await queryClient.invalidateQueries({ queryKey: ["notes"] });
   },
+  });
+  const fmt = new Intl.DateTimeFormat("uk-UA", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
 });
-
 
   return (
     <ul className={css.list}>
@@ -34,9 +40,12 @@ export default function NoteList({ notes }: NoteListProps) {
         <li key={note.id} className={css.listItem}>
           <h3 className={css.title}>{note.title}</h3>
           <p className={css.content}>{note.content}</p>
-
-          <div className={css.footer}>
+          <div>
             <p className={css.tag}>{note.tag}</p>
+            <p>{note.createdAt ? fmt.format(new Date(note.createdAt)) : ""}</p>
+          </div>
+          <div className={css.footer}>
+        
             <Link href={`/notes/${note.id}`} className={css.link}>
               View details
             </Link>
