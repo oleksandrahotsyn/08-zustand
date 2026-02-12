@@ -50,7 +50,7 @@
 
 // export default NotFound;
 import type { Metadata } from 'next';
-import css from './Home.module.css';
+import css from './page.module.css';
 
 // import Link from 'next/link';
 
