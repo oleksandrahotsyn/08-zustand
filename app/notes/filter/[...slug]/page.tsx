@@ -6,6 +6,7 @@ import {
 import type { Metadata } from "next";
 import NotesClient from "./Notes.client";
 import { fetchNotes } from "@/lib/api";
+import type { NoteTag } from "@/types/note";
 
 const PER_PAGE = 12;
 
@@ -15,6 +16,13 @@ type PageProps = {
     page?: string;
     search?: string;
   }>;
+};
+
+const TAGS: NoteTag[] = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
+
+const toNoteTag = (value?: string): NoteTag | undefined => {
+  if (!value) return undefined;
+  return TAGS.includes(value as NoteTag) ? (value as NoteTag) : undefined;
 };
 
 export async function generateMetadata({
@@ -57,7 +65,8 @@ export default async function NotesByTagPage({
   const { slug } = await params;
   const sp = (await searchParams) ?? {};
 
-  const tag = slug?.[0] === "all" ? undefined : slug?.[0];
+  const rawTag = slug?.[0];
+  const tag: NoteTag | undefined = rawTag?.toLowerCase() === "all" ? undefined : toNoteTag(rawTag);
 
   const parsedPage = Number.parseInt(sp.page ?? "1", 10);
   const initialPage =
