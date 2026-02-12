@@ -1,6 +1,6 @@
-//lib/api.ts
+
 import axios from "axios";
-import type { Note, NoteTag } from "@/types/note";
+import type { Note, NoteTag, CreateNotePayload } from "@/types/note";
 
 const BASE_URL = "https://notehub-public.goit.study/api";
 
@@ -59,24 +59,13 @@ export async function fetchNotes({
   return data;
 }
 
-type CreateNoteParams = {
-  title: string;
-  content?: string;
-  tag: NoteTag;
-};
+export async function createNote(payload: CreateNotePayload): Promise<Note> {
 
-export async function createNote({
-  title,
-  content,
-  tag,
-}: CreateNoteParams): Promise<Note> {
-  const payload = {
-    title: title.trim(),
-    tag,
-    ...(content?.trim() ? { content: content.trim() } : {}),
-  };
-
-  const { data } = await api.post<Note>("/notes", payload);
+  const {data} = await api.post<Note>("/notes", payload, {
+    headers: {
+     "Content-Type": "application/json"
+   }
+ });
   return data;
 }
 

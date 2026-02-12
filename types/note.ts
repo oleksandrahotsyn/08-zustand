@@ -1,5 +1,3 @@
-//types/note.ts
-
 export const NOTE_TAGS = ["Todo", "Work", "Personal", "Meeting", "Shopping"] as const;
 export type NoteTag = (typeof NOTE_TAGS)[number];
 
@@ -19,3 +17,8 @@ export interface Note {
   createdAt: string;
   updatedAt: string;
 }
+export interface CreateNotePayload {
+  title: string;
+  content?: string;
+  tag: NoteTag;
+};

@@ -1,22 +1,43 @@
 "use client";
+
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+
 import type { NoteTag } from "@/types/note";
 import { NOTE_TAGS } from "@/types/note";
 import css from "./NoteForm.module.css";
-
-interface NoteFormProps {
-  tags: NoteTag[];
-}
+import {createNote} from "@/lib/api";
 
 interface NoteFormProps {
   tags: NoteTag[];
 }
 
 function NoteForm({ tags }: NoteFormProps) {
+    const router = useRouter();
+    
+    useMutation({
+        mutationFn: createNote,
+        onSuccess: () => {
+            router.push("/notes/filter/all");
+        },
+    });
+
+    const handleCancel = () => {
+        router.push("/notes/filter/all");
+    }
+    const handleSubmit = (formData: FormData) => {
+        const title = formData.get("title") as string;
+        const content = formData.get("content") as string;
+        const tags = formData.get("tag") as string;
+
+        console.log(title, content, tags);
+    }
+
   const allTags: NoteTag[] = Array.from(new Set([...NOTE_TAGS, ...tags]));
   const defaultTag = allTags[0] ?? "Todo";
 
   return (
-      <form className={css.form}>
+      <form action={handleSubmit} className={css.form}>
           <div className={css.formGroup }>
       <label htmlFor="title">
         Title
@@ -41,7 +62,7 @@ function NoteForm({ tags }: NoteFormProps) {
 </div>
       <div className={css.actions}>
         <button type="submit" className={css.submitButton}>Submit</button>
-        <button type="button" className={css.cancelButton }>Cancel</button>
+        <button type="button" onClick={handleCancel} className={css.cancelButton }>Cancel</button>
       </div>
     </form>
   );
