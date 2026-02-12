@@ -23,7 +23,7 @@ export const generateMetadata = async ({
     openGraph: {
       title: note.title.trim(),
       description: note.content,
-      url: `https://08-zustand.vercel.app/notes/${id}`,
+      url: `https://08-zustand-b5wc.vercel.app/notes/${id}`,
       siteName: "NoteHub",
       locale: "en_US",
       type: "website",

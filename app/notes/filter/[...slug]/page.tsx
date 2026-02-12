@@ -42,7 +42,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://08-zustand.vercel.app/notes/${encodeURIComponent(rawTag)}`,
+      url: `https://08-zustand-b5wc.vercel.app/notes/${encodeURIComponent(rawTag)}`,
       siteName: "NoteHub",
       locale: "en_US",
       type: "website",
