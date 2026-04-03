@@ -42,7 +42,7 @@ function NoteForm({ tags }: NoteFormProps) {
   ): void => {
     setDraft({ ...draft, [event.target.name]: event.target.value });
   };
-const handleSubmit = (formData: FormData): void => {
+const handleSubmit = async (formData: FormData): Promise<void> => {
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
     const tag = formData.get("tag") as NoteTag;
@@ -78,7 +78,7 @@ const handleSubmit = (formData: FormData): void => {
       </label>
 </div>
       <div className={css.actions}>
-        <button type="submit" className={css.submitButton}>Submit</button>
+        <button type="submit" className={css.submitButton}>Create note</button>
         <button type="button" onClick={handleCancel} className={css.cancelButton }>Cancel</button>
       </div>
     </form>
