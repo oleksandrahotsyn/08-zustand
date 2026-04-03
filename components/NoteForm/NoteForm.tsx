@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { NoteTag } from "@/types/note";
 import { NOTE_TAGS } from "@/types/note";
@@ -15,14 +15,17 @@ interface NoteFormProps {
 }
 
 function NoteForm({ tags }: NoteFormProps) {
-    const router = useRouter();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
     const draft = useNoteDraftStore(state => state.draft);
     const setDraft = useNoteDraftStore(state => state.setDraft);
     const clearDraft = useNoteDraftStore(state => state.clearDraft);
 
     const {mutate} = useMutation({
         mutationFn: createNote,
-        onSuccess: () => {
+      onSuccess:async () => {
+          await queryClient.invalidateQueries({ queryKey: ["notes"] });
             clearDraft();
             router.push("/notes/filter/all");
         },
@@ -32,21 +35,23 @@ function NoteForm({ tags }: NoteFormProps) {
         router.push("/notes/filter/all");
     };
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        setDraft({...draft, [event.target.name]: event.target.value})
-    }
+     const handleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ): void => {
+    setDraft({ ...draft, [event.target.name]: event.target.value });
+  };
+const handleSubmit = (formData: FormData): void => {
+    const title = formData.get("title") as string;
+    const content = formData.get("content") as string;
+    const tag = formData.get("tag") as NoteTag;
 
-
-    const handleSubmit = (formData: FormData) => {
-        const title = formData.get("title") as string;
-        const content = formData.get("content") as string;
-        const tag = formData.get("tag") as NoteTag;
-
-        mutate({ title, content, tag });
-    }
+    mutate({ title, content, tag });
+  };
 
   const allTags: NoteTag[] = Array.from(new Set([...NOTE_TAGS, ...tags]));
-  const defaultTag = allTags[0] ?? "Todo";
+  const defaultTag = draft.tag || allTags[0] || "Todo";
 
   return (
       <form action={handleSubmit} className={css.form}>
